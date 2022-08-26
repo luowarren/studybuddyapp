@@ -16,10 +16,17 @@ class Character():
         self.health = health
         self.energy = energy
 
-        while self.energy > 0:
+    def increase_happiness(self, value=5):
+        if self.happiness <= 95:
+            self.happiness += value
+    
+    def decrease_health(self, value=10):
+        self.health -= value
+    
+    def reset_health(self):
+        self.health = 100
 
-
-
-
-# Done! Time to quit.
-pygame.quit()
+    def decrease_energy(self, value=5):
+        self.energy -= value
+    
+    def reset_energy(self, )
