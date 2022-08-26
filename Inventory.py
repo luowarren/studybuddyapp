@@ -4,7 +4,7 @@ The basic inventory requirement
 import pygame
 from Store_constants import *
 
-class Item(Entity):
+class Item():
 
     def wear(self):
 
