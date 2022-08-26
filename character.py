@@ -1,6 +1,7 @@
 # Simple pygame program
 
 # Import and initialize the pygame library
+from tkinter.messagebox import RETRY
 import pygame
 pygame.init()
 
@@ -43,6 +44,15 @@ class Character():
             self.happiness = 0
         else:
             self.happiness -= value
+    
+    #depending on how happy the buddy is, can mutiply the coins earnt by this amount
+    def happiness_multiplyer(self):
+        if self.happiness <= 33:
+            return 1
+        elif self.happiness <= 67:
+            return 1.5
+        else:
+            return 2
     
     #hunger methods
     def reset_hunger(self):
@@ -114,4 +124,31 @@ class Character():
             print('Break time')
         else:
              self.energy -= value
-    
+
+#increased thirst and hunger when time passes
+#decreased thirst and hunger when food and drink are consumed
+
+#decreased energy every certain time period of studying, energy reset after break
+
+#decreased happiness every missed day of studying, vise versa
+
+character = Character()
+
+while running:
+    # Did the user click the window close button?
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Fill the background with white
+    screen.fill((255, 255, 255))
+
+    # Draw a solid blue circle in the center
+    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
+
+    # Flip the display
+    pygame.display.flip()
+
+# Done! Time to quit.
+pygame.quit()
