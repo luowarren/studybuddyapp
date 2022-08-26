@@ -1,3 +1,1 @@
-Study buddy app hackathon!!!
-testing 123 
-test 321
+# This is studybuddy

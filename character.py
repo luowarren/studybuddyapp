@@ -4,6 +4,8 @@
 import pygame
 pygame.init()
 
+# set up sprite sheet
+
 # Set up the drawing window
 screen = pygame.display.set_mode([500, 500])
 
@@ -22,4 +24,4 @@ class Character():
 
 
 # Done! Time to quit.
-pygame.quit()
+pygame.quit()ft
