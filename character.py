@@ -29,4 +29,5 @@ class Character():
     def decrease_energy(self, value=5):
         self.energy -= value
     
-    def reset_energy(self, )
+    def reset_energy(self):
+        self.energy = 100
