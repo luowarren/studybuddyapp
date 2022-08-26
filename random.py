@@ -1,12 +1,16 @@
 # Simple pygame program
 
 # Import and initialize the pygame library
-from tkinter.messagebox import RETRY
+import button
 import pygame
 pygame.init()
 
 # Set up the drawing window
 screen = pygame.display.set_mode([500, 500])
+
+font = pygame.font.SysFont('Arial', 40)
+
+objects = []
 
 # Run until the user asks to quit
 running = True
@@ -42,6 +46,9 @@ class Character():
         self.energy = 100
 
     #happiness methods
+    def get_happiness(self):
+        return str(self.happiness)
+
     def reset_happiness(self):
         self.happiness = 50
 
@@ -67,6 +74,9 @@ class Character():
             return 2
     
     #hunger methods
+    def get_hunger(self):
+        return str(self.hunger)
+
     def reset_hunger(self):
         self.hunger = 0
 
@@ -101,6 +111,9 @@ class Character():
         self.decrease_hunger(self.food[food])
 
     #thirst functions
+    def get_thirst(self):
+        return str(self.thirst)
+
     def reset_thirst(self):
         self.thirst = 0
 
@@ -135,6 +148,9 @@ class Character():
         self.decrease_thirst(self.drinks[drink])
 
     #energy functions
+    def get_energy(self):
+        return str(self.energy)
+
     def reset_energy(self):
         self.energy = 100
 
@@ -152,6 +168,17 @@ class Character():
 
 #decreased happiness every missed day of studying, vise versa
 
+
+#buttons to use drinks and such
+character = Character()
+
+def myFunction():
+    print('Button Pressed')
+
+customButton = button.Button(30, 30, 400, 100, 'Button One (onePress)', myFunction)
+customButton = button.Button(30, 140, 400, 100, 'Button Two (multiPress)', myFunction, True)
+
+
 while running:
     # Did the user click the window close button?
 
@@ -160,10 +187,21 @@ while running:
             running = False
 
     # Fill the background with white
-    screen.fill((255, 255, 255))
 
-    # Draw a solid blue circle in the center
-    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
+    # # Draw a solid blue circle in the center
+    # pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
+
+    # font = pygame.font.SysFont(None, 24)
+    # hunger = font.render(character.get_hunger(), True, 'blue')
+    # thirst = font.render(character.get_thirst(), True, 'blue')
+    # energy = font.render(character.get_energy(), True, 'blue')
+
+    # screen.blit(hunger, (20, 20))
+    # screen.blit(thirst, (20, 40))
+    # screen.blit(energy, (20, 60))
+
+    for object in objects:
+        object.process()
 
     # Flip the display
     pygame.display.flip()
