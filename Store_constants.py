@@ -1,0 +1,22 @@
+#Screen size
+SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 600
+
+#Item ID
+SHIRT = 'S'
+SHOE = 'H'
+PANT = 'P'
+HATS = 'H'
+
+#Item Cost
+SHIRT_COST = 12
+SHOE_COST = 50
+PANT_COST = 8
+HAT_COST = 5
+
+
+#Item Happiness
+SHIRT_H = 1.2
+SHOE_H = 0.8
+PANT_H = 1.2
+HAT_H = 0/4
