@@ -79,11 +79,15 @@ class Character():
             'steak' : 30,
             'sushi' : 20,
             'potato' : 10,
+            'soup' : 5,
+            'car' : 50
         }
         self.drinks = {
+            'yes' : 1,
             'water' : 30,
             'gatorade' : 20,
-            'redbull' : 10
+            'redbull' : 10,
+            'prime' : 2
         }
 
         self.clothes = {}
@@ -221,9 +225,19 @@ class Character():
 def myFunction():
     print('Button Pressed')
 
-buddy = Character()
+buddy = Character(50, 100, 100)
 
-customButton = Button(30, 30, 100, 100, 'Button One (onePress)', buddy.increase_hunger)
+foods = ['steak','sushi','potato', 'soup', 'car']
+drinks = ['yes', 'water', 'gatorade', 'prime', 'redbull']
+
+for i in range(5):
+    customButton = Button(30 + i*120, 30, 100, 100, foods[i], lambda food = foods[i]: buddy.use_food(food))
+
+for i in range(5):
+    customButton = Button(30 + i*120, 150, 100, 100, drinks[i], lambda drink = drinks[i]: buddy.use_drink(drink))
+
+
+
 
 # Game loop.
 while True:
