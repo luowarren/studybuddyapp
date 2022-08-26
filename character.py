@@ -22,6 +22,18 @@ class Character():
         self.hunger = hunger
         self.thirst = thirst
         self.energy = energy
+        self.food = {
+            'steak' : 30,
+            'sushi' : 20,
+            'potato' : 10,
+        }
+        self.drinks = {
+            'water' : 30,
+            'gatorade' : 20,
+            'redbull' : 10
+        }
+
+        self.clothes = {}
 
     def reset_character(self):
         self.happiness = 50
@@ -84,6 +96,10 @@ class Character():
         else:
             self.hunger -= value
 
+    def use_food(self, food):
+        #check if the inventory of food is > 1 
+        self.decrease_hunger(self.food[food])
+
     #thirst functions
     def reset_thirst(self):
         self.thirst = 0
@@ -114,6 +130,10 @@ class Character():
         else:
             self.thirst -= value
 
+    def use_drink(self, drink):
+        #check if the inventory of drink is > 1 
+        self.decrease_thirst(self.drinks[drink])
+
     #energy functions
     def reset_energy(self):
         self.energy = 100
@@ -131,8 +151,6 @@ class Character():
 #decreased energy every certain time period of studying, energy reset after break
 
 #decreased happiness every missed day of studying, vise versa
-
-character = Character()
 
 while running:
     # Did the user click the window close button?
