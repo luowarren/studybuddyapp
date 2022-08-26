@@ -1,1 +1,1 @@
-test of a main commit
+Study buddy app hackathon!!!
