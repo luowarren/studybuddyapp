@@ -19,6 +19,9 @@ class Store():
 
     def __init__(self) -> None:
         self.store = []
+
+        for ID in ITEMS.keys():
+            self.get_store.append(ID)
     
     def remove_item(self, item: str):
         self.store.remove(item)
