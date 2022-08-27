@@ -8,10 +8,10 @@ CLOTH_COST = {}
 
 
 #Item ID
-# SHIRT = 'S'
-# SHOE = 'H'
-# PANT = 'P'
-# HATS = 'H'
+SHIRT = 'S'
+SHOE = 'H'
+PANT = 'P'
+HATS = 'H'
 PUMPKIN_HAT = 'PH'
 CLOWN_MASK = 'CM'
 COWBOY_HAT = 'CH'
