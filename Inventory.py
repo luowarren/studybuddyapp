@@ -10,10 +10,21 @@ class Inventory():
         self.inventory = []
     
     def add_item(self, item: str):
-        self.inventory.append()
+        self.inventory.append(item)
 
     def get_inventory(self) -> list:
         return self.inventory
+
+class Store():
+
+    def __init__(self) -> None:
+        self.store = []
+    
+    def remove_item(self, item: str):
+        self.store.remove(item)
+    
+    def get_store(self) -> None:
+        return self.store
 
 class Item():
 

@@ -46,15 +46,10 @@ class store_logic():
         #Buy the item otherwise
         else:
             Self.deduct_amount(CLOTH_COST[Item])
+            Self.Store_Item.remove_item(Item)
             Self.remove_item(Item)
             Self.Inventory.add_item(Item)
             return self.list_item()
-
-    def remove_item(Self, Item): 
-        """
-        Should remove the item from the store.
-        """
-        Self.Store_Item.get_store.pop(Item)
     
     def deduct_amount(Self, amount):
         """
