@@ -96,9 +96,9 @@ class Character():
         }
 
         self.outfit = {
-            'hat' : None,
-            'shirt' : None,
-            'pants' : None
+            'hat' : 'basic hat',
+            'shirt' : 'basic shirt',
+            'pants' : 'basic pants'
         }
 
         self.inventory = []
