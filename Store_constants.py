@@ -44,6 +44,16 @@ APPLE	= 10
 CARROT	= 10
 PIZZA = 20
 
+# clothes prices and effect on happiness
+HAT_PUMPKIN = 40
+HAT_COWBOY = 40
+MASK_CLOWN_BLUE = 30
+SAILOR = 30
+OVERALLS = 50
+SUIT = 50
+PANTS_SUIT = 40
+DRESS = 50
+
 # Item Dictionary: Item ID -> (IMG, Cost)
 ITEMS = {
   "ID_1": ("item_1", "cost_1"),
