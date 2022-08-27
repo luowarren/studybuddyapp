@@ -20,3 +20,13 @@ SHIRT_H = 1.2
 SHOE_H = 0.8
 PANT_H = 1.2
 HAT_H = 0/4
+
+# Food Costs and effects, NOTE: cost price is directly proportional to effect e.g. sushi costs $30 and increases hunger by 30
+SUSHI	= 30
+SANDWICH	= 30
+COFFEE	= 20
+FRIES	= 20
+ICEBLOCK = 10
+CAKE	= 10
+APPLE	= 10
+CARROT	= 10
