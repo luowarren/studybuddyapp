@@ -41,14 +41,13 @@ class store_logic():
             return self.list_item()
 
         #If player does not have enough money
-        elif CLOTH_COST[Item] >= self.Coin:
+        if ITEMS[Item][1] >= self.Coin:
             return self.list_item()
 
         #Buy the item otherwise
         else:
-            self.deduct_amount(CLOTH_COST[Item])
+            self.deduct_amount(ITEMS[Item][1])
             self.Store_Item.remove_item(Item)
-            self.remove_item(Item)
             self.Inventory.add_item(Item)
             return self.list_item()
     
@@ -69,15 +68,20 @@ class store_logic():
         Dictionary = {}
 
         #get the images and the cost list for items that will be on store.
-        for ID in self.Store_Item.get_store().keys():
-            Images = Images.append(CLOTH_IMAGE(ID))
-            Costs = Costs.append(CLOTH_COST(ID))
+        for ID in self.Store_Item.get_store():
+            Images.append(ITEMS[ID][0])
+            Costs.append(ITEMS[ID][1])
 
         #Set the dictionary up and return it
-        for n in range(len(self.Store_Item.get_store().keys())):
+        for n in range(len(self.Store_Item.get_store())):
             Image, Cost= Images[n], Costs[n]
-            ID = self.Store_Item.get_store().keys()[n]
+            ID = self.Store_Item.get_store()[n]
 
             Dictionary[ID] = (Image, Cost)
 
         return Dictionary
+
+invent = Inventory()
+coin = 100
+store = Store()
+sl = store_logic(invent, 100, store)
