@@ -56,12 +56,12 @@ DRESS = 50
 
 # Item Dictionary: Item ID -> (IMG, Cost)
 ITEMS = {
-  "ID_1": ("item_1", "cost_1"),
-  "ID_2": ("item_2", "cost_2"),
-  "ID_3": ("item_3", "cost_3"),
-  "ID_4": ("item_4", "cost_4"),
-  "ID_5": ("item_5", "cost_5"),
-  "ID_6": ("item_6", "cost_6"),
-  "ID_7": ("item_7", "cost_7"),
-  "ID_8": ("item_8", "cost_8"),
+  "ID_1": ("HAT_PUMPKIN", "40"),
+  "ID_2": ("HAT_COWBOY", "40"),
+  "ID_3": ("MASK_CLOWN_BLUE", "30"),
+  "ID_4": ("SAILOR", "30"),
+  "ID_5": ("OVERALLS", "50"),
+  "ID_6": ("SUIT", "50"),
+  "ID_7": ("PANTS_SUIT", "40"),
+  "ID_8": ("DRESS", "50"),
 }
