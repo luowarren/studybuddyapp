@@ -71,11 +71,13 @@ class Character():
     #hunger and thrist is increased by food and water
     #every time energy is low, the person goes to take a break (irl break)
 
-    def __init__(self, happiness = 50, hunger = 0, thirst = 0, energy = 100):
+    def __init__(self, happiness = 50, hunger = 0, thirst = 0, energy = 100, name = 'timmy', outfit = 'naked'):
         self.happiness = happiness
         self.hunger = hunger
         self.thirst = thirst
         self.energy = energy
+        self.name = name
+        self.outfit = outfit
 
         #just for values, the food and drinks will be purchased directly from the shop
         self.food = {
@@ -93,14 +95,25 @@ class Character():
             'prime' : 2
         }
 
-        self.inventory = {
-        }
+        self.inventory = []
 
     def reset_character(self):
         self.happiness = 50
         self.hunger = 0
         self.thirst = 0
         self.energy = 100
+
+    #outfit methods
+    def get_outfit(self):
+        #use this to index into the dictionary
+        return self.outfit
+    
+    def change_outfit(self, outfit):
+        #or whatever inventory
+        if outfit not in self.inventory:
+            print("You do not own this item")
+        else:
+            self.outfit = outfit
 
     #happiness methods
 
