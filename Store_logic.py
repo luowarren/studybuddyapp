@@ -61,7 +61,6 @@ class store_logic():
         """
         Return a dictionary 
         """
-
         #Set list and dictionary up.
         Images = []
         Costs = []
@@ -80,6 +79,8 @@ class store_logic():
             Dictionary[ID] = (Image, Cost)
 
         return Dictionary
+    
+    def 
 
 invent = Inventory()
 coin = 100
