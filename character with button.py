@@ -103,7 +103,24 @@ class Character():
         self.energy = 100
 
     #happiness methods
+
     def get_happiness(self):
+
+        #for warren, 0-5 from no happines to top happiness
+        if self.happiness < 100/6:
+            return 0
+        elif self.happiness >= 100/6 and self.happiness < 200/6:
+            return 1
+        elif self.happiness >= 200/6 and self.happiness < 300/6:
+            return 2
+        elif self.happiness >= 300/6 and self.happiness < 400/6:
+            return 3
+        elif self.happiness >= 400/6 and self.happiness < 500/6:
+            return 4
+        else:
+            return 5
+
+    def str_happiness(self):
         return str(self.happiness)
 
     def reset_happiness(self):
@@ -251,7 +268,7 @@ while True:
     hungertag = font.render('hunger', True, 'white')
     thirsttag = font.render('thirst', True, 'white')
     energytag = font.render('energy', True, 'white')
-    happiness = font.render(buddy.get_happiness(), True, 'white')
+    happiness = font.render(buddy.str_happiness(), True, 'white')
     hunger = font.render(buddy.get_hunger(), True, 'white')
     thirst = font.render(buddy.get_thirst(), True, 'white')
     energy = font.render(buddy.get_energy(), True, 'white')
