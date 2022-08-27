@@ -2,6 +2,11 @@
 SCREEN_HEIGHT = 800
 SCREEN_WIDTH = 600
 
+#Dictionary
+CLOTH_IMAGE = {}
+CLOTH_COST = {}
+
+
 #Item ID
 SHIRT = 'S'
 SHOE = 'H'
