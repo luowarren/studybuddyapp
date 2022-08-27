@@ -6,27 +6,27 @@ from Store_constants import *
 
 class Inventory():
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.inventory = []
     
-    def add_item(self, item: str):
+    def add_item(self, item):
         self.inventory.append(item)
 
-    def get_inventory(self) -> list:
+    def get_inventory(self):
         return self.inventory
 
 class Store():
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.store = []
 
         for ID in ITEMS.keys():
-            self.get_store.append(ID)
+            self.store.append(ID)
     
-    def remove_item(self, item: str):
+    def remove_item(self, item):
         self.store.remove(item)
     
-    def get_store(self) -> None:
+    def get_store(self):
         return self.store
 
 class Item():

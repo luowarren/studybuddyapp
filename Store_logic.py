@@ -1,8 +1,6 @@
 """
 The logic behind transaction
 """
-from operator import itemgetter
-from typing_extensions import Self
 import pygame
 
 from Store_constants import *
@@ -18,46 +16,44 @@ class store_logic():
         Initialise the inventory, number of coin, and the store_item.
         """
         #Player's inventory
-        Self.Inventory = Inventory
+        self.Inventory = Inventory
 
         #Player's number of Coin
-        Self.Coin = Coin
+        self.Coin = Coin
 
         #The item player still needs to buy
-        Self.Store_Item = Store_Item
+        self.Store_Item = Store_Item
 
-    def attempt_buy(Self, Item: ID):
+    def attempt_buy(self, Item):
         """
         Return Dictionary with ID as key and (Image, Cost) as value.
 
         Attempts to buy item. Make sure item is in the store, and 
         player has the money to purchase it.
         """
-
-
         #If Item is already in player's inventory
-        if Item not in Self.Store_Item.get_store():
+        if Item not in self.Store_Item.get_store():
             return self.list_item()
 
         #If player does not have enough money
-        elif CLOTH_COST[Item] >= Self.Coin:
+        elif CLOTH_COST[Item] >= self.Coin:
             return self.list_item()
 
         #Buy the item otherwise
         else:
-            Self.deduct_amount(CLOTH_COST[Item])
-            Self.Store_Item.remove_item(Item)
-            Self.remove_item(Item)
-            Self.Inventory.add_item(Item)
+            self.deduct_amount(CLOTH_COST[Item])
+            self.Store_Item.remove_item(Item)
+            self.remove_item(Item)
+            self.Inventory.add_item(Item)
             return self.list_item()
     
-    def deduct_amount(Self, amount):
+    def deduct_amount(self, amount):
         """
         Take away the cost from player's coin.
         """
-        Self.Coin -= amount
+        self.Coin -= amount
     
-    def list_item(Self):
+    def list_item(self):
         """
         Return a dictionary 
         """
@@ -68,14 +64,14 @@ class store_logic():
         Dictionary = {}
 
         #get the images and the cost list for items that will be on store.
-        for ID in Self.Store_Item.get_store().keys():
+        for ID in self.Store_Item.get_store().keys():
             Images = Images.append(CLOTH_IMAGE(ID))
             Costs = Costs.append(CLOTH_COST(ID))
 
         #Set the dictionary up and return it
-        for n in range(len(Self.Store_Item.get_store().keys())):
+        for n in range(len(self.Store_Item.get_store().keys())):
             Image, Cost= Images[n], Costs[n]
-            ID = Self.Store_Item.get_store().keys()[n]
+            ID = self.Store_Item.get_store().keys()[n]
 
             Dictionary[ID] = (Image, Cost)
 
