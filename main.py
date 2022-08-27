@@ -1,9 +1,11 @@
 
 import pygame
-import spritesheet 
-
 
 pygame.init()
+
+import spritesheet 
+import random 
+
 brown = (31, 22, 16)
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -54,7 +56,7 @@ done = False
 # Character
 char_x = 570
 char_y = 250
-velocity = 1
+velocity = 2
 still = True
 left = False
 right = False
@@ -69,6 +71,7 @@ heal = 100
 
 #fonts
 fontObj = pygame.font.Font('fonts/pixel.ttf', 40)
+fontObjsml = pygame.font.Font('fonts/pixel.ttf', 25)
 
 # Bars
 emojis = pygame.image.load("char/icons.png").convert_alpha()
@@ -139,13 +142,23 @@ for x in range(1, 5):
     computer_animation.append(screen2.get_image(x, 16, 16, 5))
 
 
-image_set = {
-        'hat': None,
-        'shirt': 'basic',
-        'pants': 'pants',
-    }
+class Character:
+    def __init__(self):
+        self.inventory = []
+        self.clothing = {
+            'hat': None,
+            'shirt': 'basic',
+            'pants': 'pants',
+        }
+        self.coins = 500
+        self.health = 50
+        self.happiness = 0
 
-current_items = image_set
+char = Character()
+
+image_set = char.clothing
+
+current_items = image_set.copy()
 clothe_right, clothe_left, clothe_front, clothe_back = spritesheet.animate(image_set)
 
 
@@ -153,6 +166,42 @@ study_section = pygame.Rect(594, 229, 695-594, 306-229)
 study_sign = pygame.image.load("oin.png").convert_alpha()
 study_sign = pygame.transform.scale(study_sign, (500 * 0.5, 300 * 0.5))
 timer = False
+
+frame_count = 0
+frame_rate = 60
+minutes = 0
+total = 0
+target = 0
+
+
+coins = 0
+import items
+all_items = [items.Item('carrot'), items.Item('pizza'), items.Item('iceblock'), items.Item('coffee'), items.Item('fries'), items.Item('sushi'), items.Item('burger'), items.Item('apple'), items.Item('hat_pumpkin', 'hat'), items.Item('mask_clown_blue', 'hat'), items.Item('hat_cowboy', 'hat'), items.Item('sailor', 'shirt'), items.Item('overalls', 'shirt'), items.Item('suit', 'shirt'), items.Item('pants_suit', 'pants'), items.Item('dress', 'shirt')]
+store_section = pygame.Rect(376, 288, 506-376, 326-288)
+store_sign = pygame.image.load("storesign.png").convert_alpha()
+
+space_1 = pygame.Rect(58, 498, 135-58, 574-498)
+space_2 = pygame.Rect(350, 498, 135-58, 574-498)
+space_3 = pygame.Rect(58, 581, 135-58, 574-498)
+space_4 = pygame.Rect(350, 581, 135-58, 574-498)
+
+slot_list = [(58, 498), (350, 498), (58, 581), (350, 581)]
+
+
+inventory_section = pygame.Rect(715, 221, 861-715, 307-221)
+inventory_sign = pygame.image.load("inventory.png").convert_alpha()
+inventory_sign = pygame.transform.scale(inventory_sign, (1537 * 0.2, 410 * 0.2))
+inventory_list = []
+
+first_line = fontObj.render(f"Bank:", True, (240,240,240))
+money_balance = fontObjsml.render(f"{char.coins} Study Bucks", True, (240,240,240))
+
+tip1 = fontObjsml.render(f"Study 1 minute and", True, (240,240,240))
+tip2 = fontObjsml.render(f"earn 1 study buck!", True, (240,240,240))
+tip3 = fontObjsml.render(f"Spend it on food or", True, (240,240,240))
+tip4 = fontObjsml.render(f"clothes for your", True, (240,240,240))
+tip5 = fontObjsml.render(f"buddy :)", True, (240,240,240))
+
 
 while not exit:
     # update animation
@@ -371,25 +420,49 @@ while not exit:
             last_update = current_time
             if frame > 7:
                 frame = 0
-            
+        
+        health = pygame.transform.scale(health, (66 * ((char.health * 3)/100), 4 * 3))
+        
+        if char.health > 80:
+            char.happiness = 0
+        elif char.health > 60:
+            char.happiness = 1
+        elif char.health > 50:
+            char.happiness = 2
+        elif char.health > 30:
+            char.happiness = 3
+        elif char.health > 10:
+            char.happiness = 4
+        elif char.health > 0:
+            char.happiness = 5
+        
         canvas.fill(brown)
         canvas.blit(room, (270, -30))
+
+        canvas.blit(first_line, (1000, 50))
+        money_balance = fontObjsml.render(f"{char.coins} Study Bucks", True, (240,240,240))
+        canvas.blit(money_balance, (1000, 100))    
+        canvas.blit(tip1, (1000, 250))    
+        canvas.blit(tip2, (1000, 300))
+        canvas.blit(tip3, (1000, 350))    
+        canvas.blit(tip4, (1000, 400))
+        canvas.blit(tip5, (1000, 450))
 
         canvas.blit(computer, (405, 150))
         canvas.blit(computer_animation[frame], (405, 150))
 
         canvas.blit(text, (90, 18))
 
-        canvas.blit(emoji_list[mood], (20,20))
+        canvas.blit(emoji_list[char.happiness], (20,20))
 
         canvas.blit(health, (80, 121))
         canvas.blit(bar, (20, 100))
 
-        image_set = {
-            'hat': None,
-            'shirt': 'basic',
-            'pants': 'pants',
-        }
+        if target == total:
+            target += 30
+            sale_items = [all_items[random.randint(0, len(all_items)-1)], all_items[random.randint(0, len(all_items)-1)], all_items[random.randint(0, len(all_items)-1)], all_items[random.randint(0, len(all_items)-1)]]
+
+        image_set = char.clothing
 
         if image_set == current_items:
             pass
@@ -445,11 +518,35 @@ while not exit:
         # get mouse position
         pos = pygame.mouse.get_pos()
 
-        print(char_x, char_y)
-        print(pos)
 
         if study_section.collidepoint(char_x+80, char_y+140):
             canvas.blit(study_sign, (500, 10))
+
+        if store_section.collidepoint(char_x+80, char_y+140):
+            canvas.blit(store_sign, (0, 400))
+
+            for i in range(4):
+                if sale_items[i].type == 'shirt':
+                    canvas.blit(sale_items[i].get_pic(), (slot_list[i][0], slot_list[i][1]-30))
+                elif sale_items[i].type == 'pants':
+                    canvas.blit(sale_items[i].get_pic(), (slot_list[i][0], slot_list[i][1]-50))
+                else:
+                    canvas.blit(sale_items[i].get_pic(), (slot_list[i][0], slot_list[i][1]))
+        
+        if inventory_section.collidepoint(char_x+80, char_y+140):
+            canvas.blit(inventory_sign, (630, 0))
+            inventory_list = []
+            counterer = 0
+            for i in char.inventory:
+                inventory_list.append(pygame.Rect(634 + 36*counterer, 5, 36, 36))
+                if i.type == 'shirt':
+                    canvas.blit(i.get_pic(), (634 + 35*counterer - 20, -30))
+                elif i.type == 'pants':
+                    canvas.blit(i.get_pic(), (634 + 35*counterer - 20, -50))
+                else:
+                    canvas.blit(i.get_pic(), (634 + 35*counterer - 20, -20))
+                counterer += 1
+
 
 
         # stores keys pressed 
@@ -457,6 +554,8 @@ while not exit:
 
         if keys[pygame.K_a] and char_x > 320:
             timer = False
+            frame_count = 0
+            frame_rate = 60
             if char_x < 540 and char_y < 160:
                 if char_x < 539:
                     char_x -= velocity
@@ -475,6 +574,8 @@ while not exit:
 
         if keys[pygame.K_d] and char_x < 830:
             timer = False
+            frame_count = 0
+            frame_rate = 60
             char_x += velocity
             left = False
             right = True
@@ -484,6 +585,8 @@ while not exit:
 
         if keys[pygame.K_w] and char_y > 120:
             timer = False
+            frame_count = 0
+            frame_rate = 60
             if char_x < 540 and char_y < 160:
                 pass
             else:
@@ -496,6 +599,8 @@ while not exit:
             
         if keys[pygame.K_s] and char_y < 490:
             timer = False
+            frame_count = 0
+            frame_rate = 60
             char_y += velocity
             front = True
             left = False
@@ -505,7 +610,21 @@ while not exit:
 
 
         if timer:
-            pass
+            total_seconds = frame_count // frame_rate
+            if total_seconds // 60 > minutes:
+                char.coins += 1
+                total += 1
+            minutes = total_seconds // 60
+            seconds = total_seconds % 60
+            output_string = "Study Time: {0:02}:{1:02}".format(minutes, seconds)
+            prefix_clock = fontObjsml.render(f"Your buddy is studying, you should too!", True, (white))
+            clock_text = fontObj.render(output_string, True, (white))
+            canvas.blit(prefix_clock, [405, 320])
+            canvas.blit(clock_text, [470, 350])
+
+            frame_count += 1
+            clock.tick(frame_rate)
+
 
 
         for event in pygame.event.get():
@@ -515,6 +634,28 @@ while not exit:
                 still = True
                 if event.key == pygame.K_y and study_section.collidepoint(char_x+80, char_y+140):
                     timer = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                if store_section.collidepoint(char_x+80, char_y+140):
+                    if space_1.collidepoint(pos[0], pos[1]):
+                        if sale_items[0].get_price() <= char.coins:
+                            sale_items[0].fnc(char)
+                            char.coins -= sale_items[0].get_price()
+                    elif space_2.collidepoint(pos[0], pos[1]):
+                        if sale_items[1].get_price() <= char.coins:
+                            sale_items[1].fnc(char)
+                            char.coins -= sale_items[1].get_price()
+                    elif space_3.collidepoint(pos[0], pos[1]):
+                        if sale_items[2].get_price() <= char.coins:
+                            sale_items[2].fnc(char)
+                            char.coins -= sale_items[2].get_price()
+                    elif space_4.collidepoint(pos[0], pos[1]):
+                        if sale_items[3].get_price() <= char.coins:
+                            sale_items[3].fnc(char)
+                            char.coins -= sale_items[3].get_price()
+                if inventory_section.collidepoint(char_x+80, char_y+140):
+                    for idx in range(len(char.inventory)):
+                        if inventory_list[idx].collidepoint(pos[0], pos[1]):
+                            char.inventory[idx].use(char)
             
 
     pygame.display.update()

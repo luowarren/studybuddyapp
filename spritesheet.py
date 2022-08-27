@@ -44,47 +44,47 @@ def animate(image_set):
     if image_set['hat']:
         sprite_list_right = [
             SpriteSheet(sprite_hat_image, 2),
-            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(pants_shirt_image, 2),
+            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(sprite_shoes_image, 2),
         ]
         sprite_list_left = [
             SpriteSheet(sprite_hat_image, 3),
-            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(pants_shirt_image, 3),
+            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(sprite_shoes_image, 3),
         ]
         sprite_list_front = [
             SpriteSheet(sprite_hat_image, 0),
-            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(pants_shirt_image, 0),
+            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(sprite_shoes_image, 0),
         ]
         sprite_list_back = [
             SpriteSheet(sprite_hat_image, 1),
-            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(pants_shirt_image, 1),
+            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(sprite_shoes_image, 1),
         ]
     else:
         sprite_list_right = [
-            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(pants_shirt_image, 2),
+            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(sprite_shoes_image, 2),
         ]
         sprite_list_left = [
-            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(pants_shirt_image, 3),
+            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(sprite_shoes_image, 3),
         ]
         sprite_list_front = [
-            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(pants_shirt_image, 0),
+            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(sprite_shoes_image, 0),
         ]
         sprite_list_back = [
-            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(pants_shirt_image, 1),
+            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(sprite_shoes_image, 1),
         ]
 
