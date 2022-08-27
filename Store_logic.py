@@ -80,7 +80,30 @@ class store_logic():
 
         return Dictionary
     
-    def 
+    def get_inventory(self):
+        inventory_img = []
+        img = []
+        for ID in self.Inventory.get_inventory():
+            inventory_img.append(ITEMS[ID][0])
+
+        for counter, destination in enumerate(inventory_img):
+            img.append(pygame.image.load(inventory_img[counter]))
+
+        #for counter in img:
+            #img[counter] = pygame.transform.scale(img[counter], (32*3.5, 32*3.5))
+        """
+                        
+        for image in inventory_img:
+            print(image)
+            icon = pygame.image.load(image).convert_alpha()
+
+            shirt = pygame.Surface((32, 32)).convert_alpha()
+            img.append(shirt)
+        """
+
+        
+        return img
+        
 
 invent = Inventory()
 coin = 100
