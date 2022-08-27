@@ -162,7 +162,7 @@ while run:
             run = False
         # sound effects
         if event.type == pygame.MOUSEBUTTONDOWN:
-          # help shorten?? :(
+          # work in progress...
             if apple_button.checkForInput(pygame.mouse.get_pos()):
                 purchase_sfx.play()
             if carrot_button.checkForInput(pygame.mouse.get_pos()):
