@@ -74,8 +74,10 @@ class Character():
     def __init__(self, happiness = 50, hunger = 0, thirst = 0, energy = 100):
         self.happiness = happiness
         self.hunger = hunger
-        self.thirst = thirst
+        # self.thirst = thirst
         self.energy = energy
+
+        #just for values, the food and drinks will be purchased directly from the shop
         self.food = {
             'steak' : 30,
             'sushi' : 20,
@@ -83,15 +85,16 @@ class Character():
             'soup' : 5,
             'car' : 50
         }
-        self.drinks = {
-            'yes' : 1,
-            'water' : 30,
-            'gatorade' : 20,
-            'redbull' : 10,
-            'prime' : 2
-        }
+        # self.drinks = {
+        #     'yes' : 1,
+        #     'water' : 30,
+        #     'gatorade' : 20,
+        #     'redbull' : 10,
+        #     'prime' : 2
+        # }
 
-        self.clothes = {}
+        self.inventory = {
+        }
 
     def reset_character(self):
         self.happiness = 50
@@ -164,42 +167,42 @@ class Character():
         #check if the inventory of food is > 1 
         self.decrease_hunger(self.food[food])
 
-    #thirst functions
-    def get_thirst(self):
-        return str(self.thirst)
+    # #thirst functions
+    # def get_thirst(self):
+    #     return str(self.thirst)
 
-    def reset_thirst(self):
-        self.thirst = 0
+    # def reset_thirst(self):
+    #     self.thirst = 0
 
-    def check_thirst(self):
-        if self.thirst <= 0:
-            print("not thirsty")
-        elif self.thirst > 0 and self.thirst < 25:
-            print("little bit thirsty")
-        elif self.thirst >= 25 and self.thirst < 50:
-            print("thirsty")
-        elif self.thirst >= 50 and self.thirst < 75:
-            print("very thirsty")
-        elif self.thirst >= 75 and self.thirst < 100:
-            print("dehydrated")
-        else:
-            print("dead")
+    # def check_thirst(self):
+    #     if self.thirst <= 0:
+    #         print("not thirsty")
+    #     elif self.thirst > 0 and self.thirst < 25:
+    #         print("little bit thirsty")
+    #     elif self.thirst >= 25 and self.thirst < 50:
+    #         print("thirsty")
+    #     elif self.thirst >= 50 and self.thirst < 75:
+    #         print("very thirsty")
+    #     elif self.thirst >= 75 and self.thirst < 100:
+    #         print("dehydrated")
+    #     else:
+    #         print("dead")
 
-    def increase_thirst(self, value= 10):
-        if self.thirst + value > 100:
-            self.thirst = 100
-        else: 
-            self.thirst += value
+    # def increase_thirst(self, value= 10):
+    #     if self.thirst + value > 100:
+    #         self.thirst = 100
+    #     else: 
+    #         self.thirst += value
 
-    def decrease_thirst(self, value= 10):
-        if self.thirst - value < 0:
-            self.thirst = 0
-        else:
-            self.thirst -= value
+    # def decrease_thirst(self, value= 10):
+    #     if self.thirst - value < 0:
+    #         self.thirst = 0
+    #     else:
+    #         self.thirst -= value
 
-    def use_drink(self, drink):
-        #check if the inventory of drink is > 1 
-        self.decrease_thirst(self.drinks[drink])
+    # def use_drink(self, drink):
+    #     #check if the inventory of drink is > 1 
+    #     self.decrease_thirst(self.drinks[drink])
 
     #energy functions
     def get_energy(self):
