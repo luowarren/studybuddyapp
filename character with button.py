@@ -294,14 +294,14 @@ def myFunction():
 
 buddy = Character(50, 100, 100)
 
-foods = ['steak','sushi','potato', 'soup', 'car']
-drinks = ['yes', 'water', 'gatorade', 'prime', 'redbull']
+# foods = ['steak','sushi','potato', 'soup', 'car']
+# drinks = ['yes', 'water', 'gatorade', 'prime', 'redbull']
 
-for i in range(5):
-    customButton = Button(30 + i*120, 30, 100, 100, foods[i], lambda food = foods[i]: buddy.use_food(food))
+# for i in range(5):
+#     customButton = Button(30 + i*120, 30, 100, 100, foods[i], lambda food = foods[i]: buddy.use_food(food))
 
-for i in range(5):
-    customButton = Button(30 + i*120, 150, 100, 100, drinks[i], lambda drink = drinks[i]: buddy.use_drink(drink))
+# for i in range(5):
+#     customButton = Button(30 + i*120, 150, 100, 100, drinks[i], lambda drink = drinks[i]: buddy.use_drink(drink))
 
 # Game loop.
 while True:
@@ -310,24 +310,24 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
 
-    happinesstag = font.render('happiness', True, 'white')
-    hungertag = font.render('hunger', True, 'white')
-    thirsttag = font.render('thirst', True, 'white')
-    energytag = font.render('energy', True, 'white')
-    happiness = font.render(buddy.str_happiness(), True, 'white')
-    hunger = font.render(buddy.get_hunger(), True, 'white')
-    thirst = font.render(buddy.get_thirst(), True, 'white')
-    energy = font.render(buddy.get_energy(), True, 'white')
+    # happinesstag = font.render('happiness', True, 'white')
+    # hungertag = font.render('hunger', True, 'white')
+    # thirsttag = font.render('thirst', True, 'white')
+    # energytag = font.render('energy', True, 'white')
+    # happiness = font.render(buddy.str_happiness(), True, 'white')
+    # hunger = font.render(buddy.get_hunger(), True, 'white')
+    # thirst = font.render(buddy.get_thirst(), True, 'white')
+    # energy = font.render(buddy.get_energy(), True, 'white')
 
-    screen.blit(happinesstag, (20, 260))
-    screen.blit(hungertag, (20, 310))
-    screen.blit(thirsttag, (20, 360))
-    screen.blit(energytag, (20, 410))
+    # screen.blit(happinesstag, (20, 260))
+    # screen.blit(hungertag, (20, 310))
+    # screen.blit(thirsttag, (20, 360))
+    # screen.blit(energytag, (20, 410))
 
-    screen.blit(happiness, (220, 260))
-    screen.blit(hunger, (220, 310))
-    screen.blit(thirst, (220, 360))
-    screen.blit(energy, (220, 410))
+    # screen.blit(happiness, (220, 260))
+    # screen.blit(hunger, (220, 310))
+    # screen.blit(thirst, (220, 360))
+    # screen.blit(energy, (220, 410))
 
     for object in objects:
         object.process()
