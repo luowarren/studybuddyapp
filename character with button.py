@@ -95,6 +95,12 @@ class Character():
             'prime' : 2
         }
 
+        self.outfit = {
+            'hat' : None,
+            'shirt' : None,
+            'pants' : None
+        }
+
         self.inventory = []
 
     def reset_character(self):
@@ -108,12 +114,26 @@ class Character():
         #use this to index into the dictionary
         return self.outfit
     
-    def change_outfit(self, outfit):
+    def change_hat(self, hat):
         #or whatever inventory
-        if outfit not in self.inventory:
+        if hat not in self.inventory:
             print("You do not own this item")
         else:
-            self.outfit = outfit
+            self.outfit['hat'] = hat
+
+    def change_shirt(self, shirt):
+        #or whatever inventory
+        if shirt not in self.inventory:
+            print("You do not own this item")
+        else:
+            self.outfit['shirt'] = shirt
+
+    def change_pants(self, pants):
+        #or whatever inventory
+        if pants not in self.inventory:
+            print("You do not own this item")
+        else:
+            self.outfit['pants'] = pants
 
     #happiness methods
 
