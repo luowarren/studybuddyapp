@@ -56,12 +56,12 @@ DRESS_COST = 50
 
 # Item Dictionary: Item ID -> (IMG, Cost)
 ITEMS = {
-  PUMPKIN_HAT: ("HAT_PUMPKIN", 40),
-  COWBOY_HAT: ("HAT_COWBOY", 40),
-  CLOWN_MASK: ("MASK_CLOWN_BLUE", 30),
-  SAILOR_SHIRT: ("SAILOR", 30),
-  OVERALLS: ("OVERALLS", 50),
-  SUIT: ("SUIT", 50),
-  PANTS_SUIT: ("PANTS_SUIT", 40),
-  DRESS: ("DRESS", 50),
+  "pumpkin": ("pumpkin.png", 40),
+  "cowboy": ("cowboy.png", 40),
+  "clownmask": ("clownmask.png", 30),
+  "sailor": ("sailor.png", 30),
+  "overalls": ("overalls.png", 50),
+  "suit": ("suit.png", 50),
+  "pantssuit": ("pantssuit.png", 40),
+  "dress": ("dress.png", 50),
 }
