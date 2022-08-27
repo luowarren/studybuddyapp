@@ -71,13 +71,14 @@ class Character():
     #hunger and thrist is increased by food and water
     #every time energy is low, the person goes to take a break (irl break)
 
-    def __init__(self, happiness = 50, hunger = 0, thirst = 0, energy = 100, name = 'timmy', outfit = 'naked'):
+    def __init__(self, happiness = 50, hunger = 0, thirst = 0, energy = 100, name = 'timmy', outfit = 'naked', coins = 0):
         self.happiness = happiness
         self.hunger = hunger
         self.thirst = thirst
         self.energy = energy
         self.name = name
         self.outfit = outfit
+        self.coins = coins
 
         #just for values, the food and drinks will be purchased directly from the shop
         self.food = {
@@ -108,6 +109,18 @@ class Character():
         self.hunger = 0
         self.thirst = 0
         self.energy = 100
+
+    #coins
+    def get_coins(self):
+        return str(self.coins)
+
+    def add_coins(self, coins):
+        self.coins += coins
+
+    def use_coins(self, coins):
+        if self.coins - coins < 0:
+            pass
+        self.coins -= coins
 
     #outfit methods
     def get_outfit(self):
