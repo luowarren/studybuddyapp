@@ -1,9 +1,15 @@
 import pygame
+from Store_logic import *
 SCREEN_HEIGHT = 475
 SCREEN_WIDTH = 600
 SCALE = 4
 
 BALANCE = 100
+
+a = 1
+b = 3
+
+sl = store_logic(a, BALANCE, b)
 
 pygame.init()
 
@@ -92,10 +98,13 @@ class Button():
 
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
-    def update(self):
+    def update(self): 
+        BALANCE = sl.food_purchase(self.price)
+
+        """
         global BALANCE, balance
         if BALANCE - self.price > 0:
-            BALANCE -= self.price
+            BALANCE -= self.price"""
 
 apple_label = Label(77, 195, ' $10 ')
 apple_button = Button(50, 75, apple, 10)

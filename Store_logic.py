@@ -24,6 +24,11 @@ class store_logic():
         #The item player still needs to buy
         self.Store_Item = Store_Item
 
+    def food_purchase(self, cost):
+        if self.Coin >= cost:
+            self.Coin -= cost
+        return self.Coin
+
     def attempt_buy(self, Item):
         """
         Return Dictionary with ID as key and (Image, Cost) as value.
