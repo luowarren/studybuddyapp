@@ -23,8 +23,10 @@ HAT_H = 0/4
 
 # Food Costs and effects, NOTE: cost price is directly proportional to effect e.g. sushi costs $30 and increases hunger by 30
 SUSHI	= 30
+BURGER = 30
 COFFEE	= 20
 FRIES	= 20
 ICEBLOCK = 10
 APPLE	= 10
 CARROT	= 10
+PIZZA = 10
