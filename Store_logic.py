@@ -10,14 +10,17 @@ from Inventory import *
 
 class store_logic():
     """
-    Handle the logical stuff that's happening after buying items.
+    Handle the logical stuff that's happening after player attempt to buy an item.
     """
 
     def __init__(self, Inventory, Coin, Store_Item) -> None:
+        """
+        Initialise the inventory, number of coin, and the store_item.
+        """
         #Player's inventory
         Self.Inventory = Inventory
 
-        #Player's available Coin
+        #Player's number of Coin
         Self.Coin = Coin
 
         #The item player still needs to buy
@@ -25,12 +28,12 @@ class store_logic():
 
     def attempt_buy(Self, Item: ID):
         """
-        Should determine if player can buy item. If player can buy the item,
-        then add it into inventory and deduct the cost, otherwise tell player 
-        they can't buy the item.
+        Return Dictionary with ID as key and (Image, Cost) as value.
+
+        Attempts to buy item. Make sure item is in the store, and 
+        player has the money to purchase it.
         """
 
-        #In the end, just return whatever the player can still buy.
 
         #If Item is already in player's inventory
         if Item not in Self.Store_Item.get_store():
@@ -42,7 +45,6 @@ class store_logic():
 
         #Buy the item otherwise
         else:
-            item_ID = self.Store_Item.get_store()
             Self.deduct_amount(CLOTH_COST[Item])
             Self.remove_item(Item)
             Self.Inventory.add_item(Item)
@@ -50,22 +52,32 @@ class store_logic():
 
     def remove_item(Self, Item): 
         """
-        Should remove the item from the store since player has it.
+        Should remove the item from the store.
         """
         Self.Store_Item.get_store.pop(Item)
     
     def deduct_amount(Self, amount):
+        """
+        Take away the cost from player's coin.
+        """
         Self.Coin -= amount
     
     def list_item(Self):
-        #get images for all the thing in the store currently
+        """
+        Return a dictionary 
+        """
+
+        #Set list and dictionary up.
         Images = []
         Costs = []
         Dictionary = {}
+
+        #get the images and the cost list for items that will be on store.
         for ID in Self.Store_Item.get_store().keys():
             Images = Images.append(CLOTH_IMAGE(ID))
             Costs = Costs.append(CLOTH_COST(ID))
 
+        #Set the dictionary up and return it
         for n in range(len(Self.Store_Item.get_store().keys())):
             Image, Cost= Images[n], Costs[n]
             ID = Self.Store_Item.get_store().keys()[n]
