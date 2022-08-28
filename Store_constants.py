@@ -54,6 +54,8 @@ SUIT_COST = 50
 PANTS_SUIT_COST = 40
 DRESS_COST = 50
 
+allan = 'Allan Lu < Allan Chuang'
+
 # Item Dictionary: Item ID -> (IMG, Cost)
 ITEMS = {
   "pumpkin": ("pumpkin.png", 40),
