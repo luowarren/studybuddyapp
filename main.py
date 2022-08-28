@@ -23,6 +23,8 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 
+
+
 # LEVELS
 game_menu = True
 character_load = False
@@ -140,6 +142,15 @@ for x in range(1, 5):
 for x in range(1, 5):
     computer_animation.append(screen2.get_image(x, 16, 16, 5))
 
+moving_land = pygame.image.load(f"land.png").convert_alpha()
+
+move_landing = spritesheet.SpriteSheet(moving_land, 0)
+
+animation_step = 5
+
+land_animation = []
+for x in range(animation_step):
+    land_animation.append(move_landing.get_image(x, 720, 133, 2))
 
 class Character:
     def __init__(self):
@@ -202,12 +213,81 @@ tip4 = fontObjsml.render(f"clothes for your", True, (240,240,240))
 tip5 = fontObjsml.render(f"buddy :)", True, (240,240,240))
 
 
+BODY_TYPE = char_features['body'] 
+HAIR_TYPE = char_features['hair'] 
+HAIR_COLOUR = char_features['hair_colour'] 
+EYE_TYPE = char_features['eye']
+
+sprite_sheet_image = pygame.image.load(f"Character/characters/char1.png").convert_alpha()
+hair_image = pygame.image.load(f"Character/hair/hair0.png").convert_alpha()
+eye_image = pygame.image.load("Character/eyes/eyes.png").convert_alpha()
+blush_image = pygame.image.load("Character/eyes/blush_all.png").convert_alpha()
+
+sprite_hair_image = pygame.Surface((32*8, 1568)).convert_alpha()
+sprite_hair_image.blit(hair_image, (0, 0), (32*8*HAIR_COLOUR, 0, 32*8*(HAIR_COLOUR+1), 1568))
+
+sprite_eye_image = pygame.Surface((32*8, 1568)).convert_alpha()
+sprite_eye_image.blit(eye_image, (0, 0), (32*8*EYE_TYPE, 0, 32*8*(EYE_TYPE+1), 1568))
+
+sprite_blush_image = pygame.Surface((32*8, 1568)).convert_alpha()
+sprite_blush_image.blit(blush_image, (0, 0), (0, 0, 32*8, 1568))
+
+sprite_list_left = [
+    spritesheet.SpriteSheet(sprite_sheet_image, 3),
+    spritesheet.SpriteSheet(sprite_hair_image, 3),
+    spritesheet.SpriteSheet(sprite_eye_image, 3),
+    spritesheet.SpriteSheet(sprite_blush_image, 3),
+]
+
+
+animation_list_left = []
+animation_steps = 8
+
+#emojis
+
+for asset in sprite_list_left:
+    new_animation = []
+    for x in range(animation_steps):
+        new_animation.append(asset.get_image(x, 32, 32, 10))
+    animation_list_left.append(new_animation)
+
+image_set = char.clothing
+clothe_right, clothe_left, clothe_front, clothe_back = spritesheet.animate(image_set)
+
+
+frame1 = 0
+last_update1 = pygame.time.get_ticks()
+
 while not exit:
     # update animation
     if game_menu:
+        current_time1 = pygame.time.get_ticks()
+        if current_time1 - last_update1 >= 200:
+            frame1 += 1
+            last_update1 = current_time1
+            if frame1 > 4:
+                frame1 = 0
+        
+        current_time = pygame.time.get_ticks()
+        if current_time - last_update >= 200:
+            frame += 1
+            last_update = current_time
+            if frame > 7:
+                frame = 0
 
         canvas.fill(white)
         canvas.blit(intro, (0,0))
+
+        canvas.blit(land_animation[frame1], (0, 580))
+
+        for animation in animation_list_left:
+            canvas.blit(animation[frame], (900, 280))
+
+        for animation in clothe_left:
+            canvas.blit(animation[frame], (900, 280))
+
+        
+
 
         pos = pygame.mouse.get_pos()
 
@@ -238,6 +318,7 @@ while not exit:
             animation_front = spritesheet.update_assets(char_features)
 
         pos = pygame.mouse.get_pos()
+        print(pos)
 
         for animation in animation_front:
             canvas.blit(animation[frame], (char_x, 50))

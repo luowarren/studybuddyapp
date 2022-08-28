@@ -63,7 +63,7 @@ sailor = pygame.transform.scale(sailor, (32*SCALE2, 32*SCALE2))
 
 overalls = pygame.Surface((32, 32)).convert_alpha()
 overalls.blit(overal, (0, 0), (8*32, 0*32, 9*32, 1*32))
-overalls = pygame.transform.scale(overal, (32*SCALE2, 32*SCALE2))
+overalls = pygame.transform.scale(overalls, (32*SCALE2, 32*SCALE2))
 
 suit = pygame.Surface((32, 32)).convert_alpha()
 suit.blit(sui, (0, 0), (0*32, 0*32, 1*32, 1*32))

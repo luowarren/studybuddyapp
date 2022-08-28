@@ -10,7 +10,6 @@ class SpriteSheet:
         image.blit(self.image, (0, 0), ((frame * width), (self.idx * height), (frame * width) + width, (self.idx * height) + height))
         image = pygame.transform.scale(image, (width * scale, height * scale))
 
-
         return image
 
 image_set = {
