@@ -5,9 +5,6 @@ import pygame
 
 from Store_constants import *
 from Inventory import *
-pygame.init()
-purchase_sfx = pygame.mixer.Sound("purchase.mp3")
-fail_sfx = pygame.mixer.Sound("fail.mp3")
 
 class store_logic():
     """
@@ -34,11 +31,9 @@ class store_logic():
 
     def food_purchase(self, cost):
         if self.Coin >= cost:
-            purchase_sfx.play()
             self.Coin -= cost
             self.purchase = True
         else:
-            fail_sfx.play()
             self.purchase = False
         return self.Coin
 
