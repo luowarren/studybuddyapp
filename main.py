@@ -140,6 +140,62 @@ for x in range(1, 5):
 for x in range(1, 5):
     computer_animation.append(screen2.get_image(x, 16, 16, 5))
 
+class Label():
+    def __init__(self, x, y, price):
+        self.x = x
+        self.y = y
+        self.price = price
+
+    def pricelabel(self):
+        font = pygame.font.Font('Pixel.ttf', 20)
+        label = font.render(self.price, True, (0, 0, 0), (254, 220, 86))
+        shop.blit(label, (self.x, self.y))
+
+    def label(self):
+        font = pygame.font.Font('Pixel.ttf', 40)
+        label = font.render(self.price, True, (0, 0, 0))
+        shop.blit(label, (self.x, self.y))
+
+    def balance(self):
+        font = pygame.font.Font('Pixel.ttf', 20)
+        label = font.render(self.price, True, (180, 0, 0))
+        shop.blit(label, (self.x, self.y))
+
+class Button():
+    def __init__(self, x, y, image, price, name, item):
+        self.image = image
+        self.name = name
+        self.item = item
+        self.price = price
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.clicked = False
+
+    def draw(self):
+        # get mouse pos
+        pos = pygame.mouse.get_pos()
+
+        # is the cursor colliding w button
+        if self.rect.collidepoint(pos):
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                self.clicked = True
+                print(self.price)
+                self.update()
+        if pygame.mouse.get_pressed()[0] == 0:
+            self.clicked = False
+
+        shop.blit(self.image, (self.rect.x, self.rect.y))
+
+    def update(self):
+        global char, balance
+        if char.coins - self.price > 0:
+            if self.item != None:
+                char.inventory.append(items.Item(self.name, self.item))
+                char.coins -= self.price
+            elif self.item == None and char.health + self.price <= 100:
+                char.health += self.price
+                char.coins -= self.price
+
 
 class Character:
     def __init__(self):
@@ -178,6 +234,9 @@ import items
 all_items = [items.Item('carrot'), items.Item('pizza'), items.Item('iceblock'), items.Item('coffee'), items.Item('fries'), items.Item('sushi'), items.Item('burger'), items.Item('apple'), items.Item('hat_pumpkin', 'hat'), items.Item('mask_clown_blue', 'hat'), items.Item('hat_cowboy', 'hat'), items.Item('sailor', 'shirt'), items.Item('overalls', 'shirt'), items.Item('suit', 'shirt'), items.Item('pants_suit', 'pants'), items.Item('dress', 'shirt')]
 store_section = pygame.Rect(376, 288, 506-376, 326-288)
 store_sign = pygame.image.load("storesign.png").convert_alpha()
+
+vending_section = pygame.Rect(764, 467, 946-764, 648-467)
+
 
 space_1 = pygame.Rect(58, 498, 135-58, 574-498)
 space_2 = pygame.Rect(350, 498, 135-58, 574-498)
@@ -586,81 +645,29 @@ while not exit:
             suit.blit(suitpic, (0, 0), (0*32, 0*32, 1*32, 1*32))
             suit = pygame.transform.scale(suit, (32*SCALE, 32*SCALE))
 
-
-            class Label():
-                def __init__(self, x, y, price):
-                    self.x = x
-                    self.y = y
-                    self.price = price
-
-                def pricelabel(self):
-                    font = pygame.font.Font('Pixel.ttf', 20)
-                    label = font.render(self.price, True, (0, 0, 0), (254, 220, 86))
-                    shop.blit(label, (self.x, self.y))
-
-                def label(self):
-                    font = pygame.font.Font('Pixel.ttf', 40)
-                    label = font.render(self.price, True, (0, 0, 0))
-                    shop.blit(label, (self.x, self.y))
-
-                def balance(self):
-                    font = pygame.font.Font('Pixel.ttf', 30)
-                    label = font.render(self.price, True, (255, 255, 255), (180, 0, 0))
-                    shop.blit(label, (self.x, self.y))
-
-            class Button():
-                def __init__(self, x, y, image, price):
-                    self.image = image
-                    self.price = price
-                    self.rect = self.image.get_rect()
-                    self.rect.topleft = (x, y)
-                    self.clicked = False
-
-                def draw(self):
-                    # get mouse pos
-                    pos = pygame.mouse.get_pos()
-
-                    # is the cursor colliding w button
-                    if self.rect.collidepoint(pos):
-                        if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                            self.clicked = True
-                            print(self.price)
-                            self.update()
-                    if pygame.mouse.get_pressed()[0] == 0:
-                        self.clicked = False
-
-                    shop.blit(self.image, (self.rect.x, self.rect.y))
-
-                def update(self):
-                    global BALANCE, balance
-                    if BALANCE - self.price > 0:
-                        BALANCE -= self.price
-
             sailor_label = Label(77, 195, ' $30 ')
-            sailor_button = Button(5, 1, sailor, 30)
+            sailor_button = Button(5, 1, sailor, 30, 'sailor', 'shirt')
                                 # C    R
             clownmask_label = Label(205, 195, ' $30 ')
-            clownmask_button = Button(170, 75, clownmask, 30)
+            clownmask_button = Button(170, 75, clownmask, 30, 'mask_clown_blue', 'hat')
             pumpkin_label = Label(340, 195, ' $40 ')
-            pumpkin_button = Button(290, 70, pumpkin, 40)
+            pumpkin_button = Button(290, 70, pumpkin, 40, 'hat_pumpkin', 'hat')
             cowboy_label = Label(469, 195, ' $40 ')
-            cowboy_button = Button(415, 65, cowboy, 40)
+            cowboy_button = Button(415, 65, cowboy, 40, 'hat_cowboy', 'hat')
 
             pantssuit_label = Label(69, 400, ' $40 ')
-            pantssuit_button = Button(1, 5, pantssuit, 40)
+            pantssuit_button = Button(1, 5, pantssuit, 40, 'pants_suit', 'pants')
             overalls_label = Label(205, 400, ' $50 ')
-            overalls_button = Button(153, 240, overalls, 50)
+            overalls_button = Button(153, 240, overalls, 50, 'overalls', 'shirt')
             dress_label = Label(347, 400, ' $50 ')
-            dress_button = Button(295, 225, dress, 50)
+            dress_button = Button(295, 225, dress, 50, 'dress', 'shirt')
             suit_label = Label(467, 400, ' $50 ')
-            suit_button = Button(415, 232, suit, 50)
+            suit_button = Button(415, 232, suit, 50, 'suit', 'shirt')
 
             clothes_label = Label(25, 15, 'Clothes')
 
                 
             shop.fill((209, 237, 242))
-            balance = Label(470, 25, ' $' + str(BALANCE) + ' ')
-            balance.balance()
             clothes_label.label()
             sailor_label.pricelabel()
             sailor_button.draw()
@@ -683,6 +690,99 @@ while not exit:
 
             canvas.blit(shop, (0,0))
 
+        if vending_section.collidepoint(char_x+80, char_y+140):
+            SCREEN_HEIGHT = 475
+            SCREEN_WIDTH = 600
+            shop = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT)).convert_alpha()
+            SCALE = 4
+
+            BALANCE = 100
+
+            # load images for buttons
+            icon = pygame.image.load('baricon.png').convert_alpha()
+
+            apple = pygame.Surface((32, 32)).convert_alpha()
+            apple.blit(icon, (0, 0), (192, 544, 244, 576))
+                                    # L1  H1   L2   H2
+                                    # 6   17   7    18
+            apple = pygame.transform.scale(apple, (32*SCALE, 32*SCALE))
+
+            carrot = pygame.Surface((32, 32)).convert_alpha()
+            carrot.blit(icon, (0, 0), (10*32, 18*32, 11*32, 19*32))
+            carrot = pygame.transform.scale(carrot, (32*3.5, 32*3.5))
+
+            pizza = pygame.Surface((32, 32)).convert_alpha()
+            pizza.blit(icon, (0, 0), (3*32, 15*32, 11*32, 4*32))
+            pizza = pygame.transform.scale(pizza, (32*SCALE, 32*SCALE))
+
+            iceblock = pygame.Surface((32, 32)).convert_alpha()
+            iceblock.blit(icon, (0, 0), (8*32, 13*32, 9*32, 14*32))
+            iceblock = pygame.transform.scale(iceblock, (32*SCALE, 32*SCALE))
+
+            coffee = pygame.Surface((32, 32)).convert_alpha()
+            coffee.blit(icon, (0, 0), (10*32, 14*32, 11*32, 15*32))
+            coffee = pygame.transform.scale(coffee, (32*3.5, 32*3.5))
+
+            fries = pygame.Surface((32, 32)).convert_alpha()
+            fries.blit(icon, (0, 0), (5*32, 15*32, 6*32, 16*32))
+            fries = pygame.transform.scale(fries, (32*SCALE, 32*SCALE))
+
+            sushi = pygame.Surface((32, 32)).convert_alpha()
+            sushi.blit(icon, (0, 0), (10*32, 16*32, 11*32, 17*32))
+            sushi = pygame.transform.scale(sushi, (32*SCALE, 32*SCALE))
+
+            burger = pygame.Surface((32, 32)).convert_alpha()
+            burger.blit(icon, (0, 0), (2*32, 15*32, 11*32, 3*32))
+            burger = pygame.transform.scale(burger, (32*3.5, 32*3.5))
+
+
+            apple_label = Label(77, 195, ' $10 ')
+            apple_button = Button(50, 75, apple, 10, 'apple', None)
+                                # C    R
+            carrot_label = Label(205, 195, ' $10 ')
+            carrot_button = Button(175, 75, carrot, 10, 'carrot', None)
+            fries_label = Label(340, 195, ' $10 ')
+            fries_button = Button(300, 70, fries, 10, 'fries', None)
+            iceblock_label = Label(469, 195, ' $10 ')
+            iceblock_button = Button(425, 65, iceblock, 10, 'iceblock', None)
+
+            pizza_label = Label(69, 400, ' $20 ')
+            pizza_button = Button(35, 275, pizza, 20, 'pizza', None)
+            coffee_label = Label(205, 400, ' $20 ')
+            coffee_button = Button(190, 275, coffee, 20, 'coffee', None)
+            sushi_label = Label(340, 400, ' $30 ')
+            sushi_button = Button(310, 275, sushi, 30, 'sushi', None)
+            burger_label = Label(467, 400, ' $30 ')
+            burger_button = Button(440, 275, burger, 30, 'burger', None)
+
+            food_label = Label(25, 15, 'Food')
+
+            
+            shop.fill((245, 242, 208))
+            balance = Label(400, 25, ' Health: ' + str(char.health) + '/100 ')
+            balance.balance()
+            food_label.label()
+            apple_label.pricelabel()
+            apple_button.draw()
+            carrot_label.pricelabel()
+            carrot_button.draw()
+            fries_label.pricelabel()
+            fries_button.draw()
+            iceblock_label.pricelabel()
+            iceblock_button.draw()
+
+            pizza_label.pricelabel()
+            pizza_button.draw()
+            coffee_label.pricelabel()
+            coffee_button.draw()
+            burger_label.pricelabel()
+            sushi_label.pricelabel()
+            sushi_button.draw()
+            burger_label.pricelabel()
+            burger_button.draw()
+
+            canvas.blit(shop, (0,0))
+
         
         if inventory_section.collidepoint(char_x+80, char_y+140):
             canvas.blit(inventory_sign, (630, 0))
@@ -697,6 +797,7 @@ while not exit:
                 else:
                     canvas.blit(i.get_pic(), (634 + 35*counterer - 20, -20))
                 counterer += 1
+        
 
 
 
