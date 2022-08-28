@@ -54,8 +54,6 @@ burger = pygame.Surface((32, 32)).convert_alpha()
 burger.blit(icon, (0, 0), (2*32, 15*32, 11*32, 3*32))
 burger = pygame.transform.scale(burger, (32*3.5, 32*3.5))
 
-# sound effects
-purchase_sfx = pygame.mixer.Sound("purchase.mp3")
 
 class Label():
     def __init__(self, x, y, price):
@@ -160,24 +158,5 @@ while run:
         # quit game
         if event.type == pygame.QUIT:
             run = False
-        # sound effects
-        if event.type == pygame.MOUSEBUTTONDOWN:
-          # work in progress...
-            if apple_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if carrot_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if fries_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if iceblock_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if pizza_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if coffee_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if sushi_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if burger_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
     pygame.display.update()
 pygame.quit()
