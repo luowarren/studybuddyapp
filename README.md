@@ -7,3 +7,5 @@ Inventory: Backbone with all the objects and setting the inventory.
 Store Logic: The Logic behind what to display, what happens when player attempts to buy something.
 
 Store GUI: The GUI of the store.
+
+commit test

@@ -5,6 +5,9 @@ import pygame
 
 from Store_constants import *
 from Inventory import *
+pygame.init()
+purchase_sfx = pygame.mixer.Sound("purchase.mp3")
+fail_sfx = pygame.mixer.Sound("fail.mp3")
 
 class store_logic():
     """
@@ -24,10 +27,24 @@ class store_logic():
         #The item player still needs to buy
         self.Store_Item = Store_Item
 
+        #Checks if the purchase was successful
+        self.purchase = False
+
+
+
     def food_purchase(self, cost):
         if self.Coin >= cost:
+            purchase_sfx.play()
             self.Coin -= cost
+            self.purchase = True
+        else:
+            fail_sfx.play()
+            self.purchase = False
         return self.Coin
+
+    def checker(self):
+        if self.purchase:
+            return True
 
     def attempt_buy(self, Item):
         """
@@ -39,22 +56,27 @@ class store_logic():
         #If Item is already in player's inventory
         if Item not in self.Store_Item.get_store():
             return self.list_item()
+            
 
         #If player does not have enough money
         if ITEMS[Item][1] >= self.Coin:
+            fail_sfx.play()
             return self.list_item()
 
         #Buy the item otherwise
         else:
+            
+            purchase_sfx.play()
             self.deduct_amount(ITEMS[Item][1])
             self.Store_Item.remove_item(Item)
             self.Inventory.add_item(Item)
             return self.list_item()
-    
+
     def deduct_amount(self, amount):
         """
         Take away the cost from player's coin.
         """
+        purchase_sfx.play()
         self.Coin -= amount
     
     def list_item(self):
