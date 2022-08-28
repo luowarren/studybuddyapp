@@ -53,10 +53,7 @@ class store_logic():
             return self.list_item()
             
 
-        #If player does not have enough money
-        if ITEMS[Item][1] >= self.Coin:
-            fail_sfx.play()
-            return self.list_item()
+       # tesing for functionality ...
 
         #Buy the item otherwise
         else:
