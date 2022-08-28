@@ -44,47 +44,47 @@ def animate(image_set):
     if image_set['hat']:
         sprite_list_right = [
             SpriteSheet(sprite_hat_image, 2),
-            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(pants_shirt_image, 2),
+            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(sprite_shoes_image, 2),
         ]
         sprite_list_left = [
             SpriteSheet(sprite_hat_image, 3),
-            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(pants_shirt_image, 3),
+            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(sprite_shoes_image, 3),
         ]
         sprite_list_front = [
             SpriteSheet(sprite_hat_image, 0),
-            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(pants_shirt_image, 0),
+            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(sprite_shoes_image, 0),
         ]
         sprite_list_back = [
             SpriteSheet(sprite_hat_image, 1),
-            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(pants_shirt_image, 1),
+            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(sprite_shoes_image, 1),
         ]
     else:
         sprite_list_right = [
-            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(pants_shirt_image, 2),
+            SpriteSheet(sprite_shirt_image, 2),
             SpriteSheet(sprite_shoes_image, 2),
         ]
         sprite_list_left = [
-            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(pants_shirt_image, 3),
+            SpriteSheet(sprite_shirt_image, 3),
             SpriteSheet(sprite_shoes_image, 3),
         ]
         sprite_list_front = [
-            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(pants_shirt_image, 0),
+            SpriteSheet(sprite_shirt_image, 0),
             SpriteSheet(sprite_shoes_image, 0),
         ]
         sprite_list_back = [
-            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(pants_shirt_image, 1),
+            SpriteSheet(sprite_shirt_image, 1),
             SpriteSheet(sprite_shoes_image, 1),
         ]
 
@@ -120,4 +120,48 @@ def animate(image_set):
 
     return animation_list_right, animation_list_left, animation_list_front, animation_list_back
 
-        
+
+char_features = {
+    'body': 0,
+    'hair': 0,
+    'hair_colour': 0,
+    'eye': 0,
+}
+
+def update_assets(char_features):
+    BODY_TYPE = char_features['body'] 
+    HAIR_TYPE = char_features['hair'] 
+    HAIR_COLOUR = char_features['hair_colour'] 
+    EYE_TYPE = char_features['eye']
+
+    sprite_sheet_image = pygame.image.load(f"Character/characters/char{BODY_TYPE+1}.png").convert_alpha()
+    hair_image = pygame.image.load(f"Character/hair/hair{HAIR_TYPE}.png").convert_alpha()
+    eye_image = pygame.image.load("Character/eyes/eyes.png").convert_alpha()
+    blush_image = pygame.image.load("Character/eyes/blush_all.png").convert_alpha()
+
+    sprite_hair_image = pygame.Surface((32*8, 1568)).convert_alpha()
+    sprite_hair_image.blit(hair_image, (0, 0), (32*8*HAIR_COLOUR, 0, 32*8*(HAIR_COLOUR+1), 1568))
+
+    sprite_eye_image = pygame.Surface((32*8, 1568)).convert_alpha()
+    sprite_eye_image.blit(eye_image, (0, 0), (32*8*EYE_TYPE, 0, 32*8*(EYE_TYPE+1), 1568))
+
+    sprite_blush_image = pygame.Surface((32*8, 1568)).convert_alpha()
+    sprite_blush_image.blit(blush_image, (0, 0), (0, 0, 32*8, 1568))
+
+    sprite_list_front = [
+        SpriteSheet(sprite_sheet_image, 0),
+        SpriteSheet(sprite_hair_image, 0),
+        SpriteSheet(sprite_eye_image, 0),
+        SpriteSheet(sprite_blush_image, 0),
+    ]
+
+    animation_list_front = []
+    animation_steps = 8
+
+    for asset in sprite_list_front:
+        new_animation = []
+        for x in range(animation_steps):
+            new_animation.append(asset.get_image(x, 32, 32, 5))
+        animation_list_front.append(new_animation)
+    
+    return animation_list_front
