@@ -6,10 +6,22 @@ pygame.init()
 import spritesheet 
 import random 
 
+pygame.mixer.init()
+pygame.mixer.music.load("music/bg_song.mp3")
+button_sound = pygame.mixer.Sound("music/button2.wav")
+walking_sound = pygame.mixer.Sound("music/walking_sound_effect.mp3")
+celebrate = pygame.mixer.Sound("music/celebrate.wav")
+purchase = pygame.mixer.Sound("music/purchase.mp3")
+equip = pygame.mixer.Sound("music/equip.wav")
+
+pygame.mixer.music.play(-1, 0.0)
+
+
+
 brown = (31, 22, 16)
 white = (255, 255, 255)
 black = (0, 0, 0)
-  
+
 
 # LEVELS
 game_menu = True
@@ -56,18 +68,12 @@ done = False
 # Character
 char_x = 570
 char_y = 250
-velocity = 2
+velocity = 1.5
 still = True
 left = False
 right = False
 front = True
 back = False
-
-# Char Object
-mood = 0
-name = "Timmy"
-heal = 100
-
 
 #fonts
 fontObj = pygame.font.Font('fonts/pixel.ttf', 40)
@@ -86,7 +92,6 @@ bar = pygame.transform.scale(bar, (80 * 3, 19 * 3))
 health = pygame.Surface((66, 4)).convert_alpha()
 #health.blit(bars, (7, 20), (28, 90, 84, 94))
 health.blit(bars, (0, 0), (28, 90, 84, 94))
-health = pygame.transform.scale(health, (66 * ((heal * 3)/100), 4 * 3))
 
 
 # background
@@ -120,17 +125,11 @@ char_features = {
 current_features = char_features.copy()
 animation_front = spritesheet.update_assets(char_features)
 
-# SPRITE SHEET
-
-
-
 # create timer
 last_update = pygame.time.get_ticks()
 animation_cooldown = 100
 frame = 0
 
-
-# creating animation list
 
 #emojis
 for x in range(1, 7):
@@ -216,6 +215,7 @@ while not exit:
             if event.type == pygame.QUIT:
                 exit = True
             if event.type == pygame.MOUSEBUTTONUP and start_button.collidepoint(pos[0], pos[1]):
+                pygame.mixer.Sound.play(button_sound)
                 game_menu = False
                 character_load = True
 
@@ -250,38 +250,47 @@ while not exit:
 
             if event.type == pygame.MOUSEBUTTONUP:
                 if minus_skin.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['body'] -= 1
                     if char_features['body'] < 0:
                         char_features['body'] = 7
                 elif minus_hairstyle.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['hair'] -= 1
                     if char_features['hair'] < 0:
                         char_features['hair'] = 14
                 elif minus_haircolor.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['hair_colour'] -= 1
                     if char_features['hair_colour'] < 0:
                         char_features['hair_colour'] = 13
                 elif minus_eye.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['eye'] -= 1
                     if char_features['eye'] < 0:
                         char_features['eye'] = 13
                 elif plus_skin.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['body'] += 1
                     if char_features['body'] > 7:
                         char_features['body'] = 0
                 elif plus_hairstyle.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['hair'] += 1
                     if char_features['hair'] > 14:
                         char_features['hair'] = 0
                 elif plus_haircolor.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['hair_colour'] += 1
                     if char_features['hair_colour'] > 13:
                         char_features['hair_colour'] = 0
                 elif plus_eye.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     char_features['eye'] += 1
                     if char_features['eye'] > 13:
                         char_features['eye'] = 0
                 elif set_name.collidepoint(pos[0], pos[1]):
+                    pygame.mixer.Sound.play(button_sound)
                     character_load = False
                     buddy_name = True
 
@@ -388,6 +397,7 @@ while not exit:
             if event.type == pygame.KEYDOWN:
                 if active:
                     if event.key == pygame.K_RETURN:
+                        pygame.mixer.Sound.play(celebrate)
                         name = char_names
                         buddy_name = False
                         game_start = True
@@ -519,7 +529,7 @@ while not exit:
         pos = pygame.mouse.get_pos()
 
 
-        if study_section.collidepoint(char_x+80, char_y+140):
+        if study_section.collidepoint(char_x+80, char_y+140) and not timer:
             canvas.blit(study_sign, (500, 10))
 
         if store_section.collidepoint(char_x+80, char_y+140):
@@ -633,28 +643,35 @@ while not exit:
             if event.type == pygame.KEYUP:
                 still = True
                 if event.key == pygame.K_y and study_section.collidepoint(char_x+80, char_y+140):
+                    pygame.mixer.Sound.play(celebrate)
                     timer = True
             if event.type == pygame.MOUSEBUTTONUP:
                 if store_section.collidepoint(char_x+80, char_y+140):
                     if space_1.collidepoint(pos[0], pos[1]):
                         if sale_items[0].get_price() <= char.coins:
+                            pygame.mixer.Sound.play(purchase)
                             sale_items[0].fnc(char)
                             char.coins -= sale_items[0].get_price()
                     elif space_2.collidepoint(pos[0], pos[1]):
                         if sale_items[1].get_price() <= char.coins:
+                            pygame.mixer.Sound.play(purchase)
                             sale_items[1].fnc(char)
                             char.coins -= sale_items[1].get_price()
                     elif space_3.collidepoint(pos[0], pos[1]):
                         if sale_items[2].get_price() <= char.coins:
+                            pygame.mixer.Sound.play(purchase)
                             sale_items[2].fnc(char)
                             char.coins -= sale_items[2].get_price()
                     elif space_4.collidepoint(pos[0], pos[1]):
                         if sale_items[3].get_price() <= char.coins:
+                            pygame.mixer.Sound.play(purchase)
                             sale_items[3].fnc(char)
                             char.coins -= sale_items[3].get_price()
+                    
                 if inventory_section.collidepoint(char_x+80, char_y+140):
                     for idx in range(len(char.inventory)):
                         if inventory_list[idx].collidepoint(pos[0], pos[1]):
+                            pygame.mixer.Sound.play(equip)
                             char.inventory[idx].use(char)
             
 
