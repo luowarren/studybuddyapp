@@ -4,7 +4,9 @@ from Store_logic import *
 SCREEN_HEIGHT = 475
 SCREEN_WIDTH = 600
 SCALE = 4
-
+pygame.init()
+purchase_sfx = purchase.mixer.Sound("purchase.mp3")
+fail_sfx = fail.mixer.Sound("fail.mp3")
 BALANCE = 100
 
 a = 1
@@ -170,6 +172,8 @@ while run:
         # quit game
         if event.type == pygame.QUIT:
             run = False
+	if event.type == pygame.KEYBUTTONDOWN:
+		pass
 
     pygame.display.update()
 pygame.quit()
