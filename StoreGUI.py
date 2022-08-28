@@ -56,6 +56,7 @@ burger = pygame.transform.scale(burger, (32*3.5, 32*3.5))
 
 # sound effects
 purchase_sfx = pygame.mixer.Sound("purchase.mp3")
+fail_sfx = pygame.mixer.Sound("fail.mp3")
 
 class Label():
     def __init__(self, x, y, price):
@@ -85,6 +86,7 @@ class Button():
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.clicked = False
+        self.purchased = False
 
     def draw(self):
         # get mouse pos
@@ -104,10 +106,18 @@ class Button():
     def update(self):
         global BALANCE 
         BALANCE = sl.food_purchase(self.price)
+        if sl.checker:
+            self.purchased = True
+        else:
+            self.purcahsed = False
+    
+    def purchase(self):
+        return self.purchased
         
-    def checkForInput(self, position):
+    def checkForPress(self, position):
         if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
 		        return True
+    
 
 apple_label = Label(77, 195, ' $10 ')
 apple_button = Button(50, 75, apple, 10)
@@ -160,24 +170,6 @@ while run:
         # quit game
         if event.type == pygame.QUIT:
             run = False
-        # sound effects
-        if event.type == pygame.MOUSEBUTTONDOWN:
-          # work in progress...
-            if apple_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if carrot_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if fries_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if iceblock_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if pizza_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if coffee_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if sushi_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
-            if burger_button.checkForInput(pygame.mouse.get_pos()):
-                purchase_sfx.play()
+
     pygame.display.update()
 pygame.quit()
