@@ -15,7 +15,7 @@ exit = False
 
 
 # Character
-char_x = 570
+char_x = 600
 char_y = 250
 velocity = 0.5
 still = True
